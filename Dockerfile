@@ -1,6 +1,8 @@
 FROM 		phusion/baseimage
 MAINTAINER 	Yusuke Yasuda <yusuke.007.yasud@gmail.com>
 
+RUN apt-get update && apt-get install unzip 
+
 ADD https://dl.bintray.com/mitchellh/consul/0.4.1_linux_amd64.zip /tmp/consul.zip
 RUN cd /bin && unzip /tmp/consul.zip && chmod +x /bin/consul && rm /tmp/consul.zip
 
@@ -10,7 +12,7 @@ RUN mkdir /ui && cd /ui && unzip /tmp/webui.zip && rm /tmp/webui.zip
 ADD https://get.docker.io/builds/Linux/x86_64/docker-1.2.0 /bin/docker
 RUN chmod +x /bin/docker
 
-RUN opkg-install curl bash
+RUN apt-get clean
 
 ADD ./config /config/
 ONBUILD ADD ./config /config/
